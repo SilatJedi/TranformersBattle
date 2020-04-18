@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Tranformers Battle</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="retry">Retry</string>
+    <string name="getting_allspark_message">Getting the Allspark.</string>
+    <string name="spark_obtained_message">We\'ve have the Allspark!!!</string>
+    <string name="spark_obtain_fail_message">Unable to get the Allspark.</string>
 </resources>

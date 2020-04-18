@@ -7,6 +7,9 @@ import com.google.gson.GsonBuilder;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -49,4 +52,22 @@ public class Api {
     public static TransformerService transformerService(@NonNull String token) {
         return createService(TransformerService.class, token);
     }
+
+
+
+
+    //    private void call2(@NonNull String token) {
+//        Api.transformerService(token).getTransformers().enqueue(new Callback<TransformersResponse>() {
+//
+//            @Override
+//            public void onResponse(@NonNull Call<TransformersResponse> call, @NonNull Response<TransformersResponse> response) {
+//                Toast.makeText(AllsparkActivity.this, response.body().toString(), Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onFailure(@NonNull Call<TransformersResponse> call, @NonNull Throwable t) {
+//                Toast.makeText(AllsparkActivity.this, "Call Failed", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 }
