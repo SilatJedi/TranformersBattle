@@ -1,5 +1,6 @@
 package com.silatsaktistudios.tranformersbattle;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+
+import static com.silatsaktistudios.tranformersbattle.model.PrefKeys.ALLSPARK_KEY;
+import static com.silatsaktistudios.tranformersbattle.model.PrefKeys.PREF_KEY;
 
 
 public class AllsparkFragment extends Fragment {
@@ -65,7 +69,7 @@ public class AllsparkFragment extends Fragment {
     }
 
     private void initSubs() {
-        disposables.add(
+        disposables.addAll(
                 viewModel.sparkState
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -92,6 +96,21 @@ public class AllsparkFragment extends Fragment {
                                     }
                                 },
                                 onError -> initFailToGetSparkUiState()
+                        ),
+                viewModel.token
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                allSpark -> {
+                                    if (getActivity() != null) {
+                                        getActivity()
+                                                .getSharedPreferences(PREF_KEY, Context.MODE_PRIVATE)
+                                                .edit()
+                                                .putString(ALLSPARK_KEY, allSpark)
+                                                .apply();
+                                        viewModel.sparkState.onNext(AllsparkViewModel.SparkState.SPARK_OBTAINED);
+                                    }
+                                }
                         )
         );
     }

@@ -15,6 +15,7 @@ public class AllsparkViewModel extends ViewModel {
     public AllsparkViewModel() {}
 
     ReplaySubject<SparkState> sparkState = ReplaySubject.create();
+    ReplaySubject<String> token = ReplaySubject.create();
 
     void getTheAllSpark() {
         sparkState.onNext(SparkState.GETTING_SPARK);
@@ -25,7 +26,7 @@ public class AllsparkViewModel extends ViewModel {
                     public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
-                                sparkState.onNext(SparkState.SPARK_OBTAINED);
+                                token.onNext(response.body());
                             } else {
                                 sparkState.onNext(SparkState.FAILED_TO_GET_SPARK);
                             }
